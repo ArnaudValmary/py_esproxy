@@ -23,7 +23,8 @@ poetry-plugin-export = ">=1.8"
 python = ">=3.11"
 fastapi = "0.141.1"
 uvicorn="0.52.4"
-httpx = "0.28.1"
+#httpx = "0.28.1"
+elasticsearch = {extras = ["async"], version = "8.19.3"}
 python-dotenv ="1.2.3"
 
 [tool.poetry.group.dev]

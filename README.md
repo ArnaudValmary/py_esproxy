@@ -19,7 +19,7 @@ docker run \
 ## Run Elasticsearch proxy
 
 ```bash
-poetry run python src/main.py
+poetry run uvicorn src.elastic_proxy.main:app --reload
 ```
 
 ## Show proxy log
@@ -27,6 +27,10 @@ poetry run python src/main.py
 ```bash
 tail -f proxy.log
 ```
+
+## Proxy swagger
+
+[http://localhost:8000/swagger](http://localhost:8000/swagger)
 
 ## Tests
 
@@ -36,20 +40,7 @@ tail -f proxy.log
 curl \
     -X GET \
     --header "PRIVATE-KEY: 712bfe268bba280cb04c896929bad2db" \
-    --url "http://localhost:8000" \
-    --header "action: ping" \
-    --header "index_name: the_index_name" \
-| jq
-```
-
-### List predefined actions
-
-```bash
-curl \
-    -X GET \
-    --header "PRIVATE-KEY: 712bfe268bba280cb04c896929bad2db" \
-    --url "http://localhost:8000" \
-    --header "action: actions" \
+    --url "http://localhost:8000/generic/ping" \
 | jq
 ```
 
@@ -59,8 +50,7 @@ curl \
 curl \
     -X GET \
     --header "PRIVATE-KEY: 712bfe268bba280cb04c896929bad2db" \
-    --url "http://localhost:8000" \
-    --header "action: indices_list" \
+    --url "http://localhost:8000/predefined/indices_list" \
 | jq
 ```
 
@@ -70,9 +60,8 @@ curl \
 curl \
     -X GET \
     --header "PRIVATE-KEY: 712bfe268bba280cb04c896929bad2db" \
-    --url "http://localhost:8000" \
-    --header "action: index_mapping"
-    --header "index_name: the_index_name" \
+    --url "http://localhost:8000/predefined/index_mapping" \
+    --header "index-name: my_new_index" \
 | jq
 ```
 
@@ -82,7 +71,7 @@ curl \
 curl \
     -X GET \
     --header "PRIVATE-KEY: 712bfe268bba280cb04c896929bad2db" \
-    --url "http://localhost:8000" \
+    --url "http://localhost:8000/generic/" \
 | jq
 ```
 
@@ -92,10 +81,10 @@ curl \
 curl \
     -X POST \
     --header "PRIVATE-KEY: 712bfe268bba280cb04c896929bad2db" \
-    --url "http://localhost:8000/the_index_name/_doc/1" \
+    --url "http://localhost:8000/generic/the_index_name/_doc/1" \
     --data '{
-        "champ1": "valeur1",
-        "champ2": "valeur2"
+        "field1": "value1",
+        "field2": "value2"
     }' \
 | jq
 ```
@@ -106,6 +95,6 @@ curl \
 curl \
     -X GET \
     --header "PRIVATE-KEY: 712bfe268bba280cb04c896929bad2d" \
-    --url "http://localhost:8000/the_index_name/_mapping" \
+    --url "http://localhost:8000/generic/the_index_name/_mapping"  \
 | jq
 ```

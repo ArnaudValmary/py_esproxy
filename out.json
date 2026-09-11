@@ -1,0 +1,4 @@
+{"index": {"_index": "my_new_index2", "_id": "24645"}}
+{"title": "Mon document 24645", "content": "Ceci est un exemple de document ajout\u00e9 via le proxy.", "timestamp": "2026-09-12T14:58:54", "count": 24645}
+{"index": {"_index": "my_new_index2", "_id": "24646"}}
+{"title": "Mon document 24646", "content": "Ceci est un exemple de document ajout\u00e9 via le proxy.", "timestamp": "2026-09-12T14:58:54", "count": 24646}
